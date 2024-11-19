@@ -6,6 +6,7 @@ import com.company.models.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("ForLoopReplaceableByForEach")
 public class DataProcessor {
@@ -67,21 +68,10 @@ public class DataProcessor {
      * all customers who do not have any movies with the targetGenre in their list of likedMovies.
      */
     public static List<Customer> findAllCustomersAboveTargetAgeThatLikeGenre(List<Customer> customers, int targetAge, Genre targetGenre) {
-        List<Customer> result = new ArrayList<>();
-
-        for (int i = 0; i < customers.size(); i++) {
-            var customer = customers.get(i);
-            if (customer.getAge() > targetAge) {
-                for (int j = 0; j < customer.getLikedMovies().size(); j++) {
-                    if (customer.getLikedMovies().get(j).getGenre().equals(targetGenre)) {
-                        result.add(customer);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return result;
+        return customers.stream().filter(customer -> customer.getAge() > targetAge)
+                .filter(customer -> customer.getLikedMovies().stream()
+                        .anyMatch(movie -> movie.getGenre().equals(targetGenre)))
+                .collect(Collectors.toList());
     }
 
     /**
