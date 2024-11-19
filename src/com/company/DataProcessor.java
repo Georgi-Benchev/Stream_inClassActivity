@@ -39,17 +39,7 @@ public class DataProcessor {
      * Hint: What method on streams eliminates elements, based on some condition?
      */
     public static long findHowManyPeopleLikeMove(List<Customer> customers, Movie targetMovie) {
-        long count = 0;
-
-        for (int i = 0; i < customers.size(); i++) {
-            for (int j = 0; j < customers.get(i).getLikedMovies().size(); j++) {
-                if (customers.get(i).getLikedMovies().get(j).equals(targetMovie)) {
-                    count++;
-                }
-            }
-        }
-
-        return count;
+        return customers.stream().filter(customer -> customer.getLikedMovies().contains(targetMovie)).count();
     }
 
     /**
