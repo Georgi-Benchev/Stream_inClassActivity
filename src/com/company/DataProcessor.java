@@ -78,15 +78,7 @@ public class DataProcessor {
      * Hint: Eliminate all customers with age below the targetAge.
      */
     public static List<Customer> findAllCustomersUnderTargetAge(List<Customer> customers, int targetAge) {
-        List<Customer> customersUnderTargetAge = new ArrayList<>();
-
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getAge() < targetAge) {
-                customersUnderTargetAge.add(customers.get(i));
-            }
-        }
-
-        return customersUnderTargetAge;
+        return customers.stream().filter(customer -> customer.getAge() < targetAge).toList();
     }
 
     /**
