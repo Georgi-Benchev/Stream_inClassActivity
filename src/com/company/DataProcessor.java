@@ -32,16 +32,7 @@ public class DataProcessor {
      * Hint: Is there a method on streams that asks the question "Do all element match a given condition?"
      */
     public static boolean findIfAllCustomersDislikeMovie(List<Customer> customers, Movie targetMovie) {
-        boolean result = true;
-
-        for (int i = 0; i < customers.size(); i++) {
-            if (!customers.get(i).getDislikedMovies().contains(targetMovie)) {
-                result = false;
-                break;
-            }
-        }
-
-        return result;
+        return customers.stream().allMatch(customer -> customer.getDislikedMovies().contains(targetMovie));
     }
 
     /**
