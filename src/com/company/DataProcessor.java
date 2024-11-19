@@ -94,26 +94,8 @@ public class DataProcessor {
      * has a movie with a genre, different than the targetGenre.
      */
     public static List<Customer> findAllCustomersWhoLikeOnlyMoviesWithGenre(List<Customer> customers, Genre targetGenre) {
-        List<Customer> result = new ArrayList<>();
-
-        for (Customer customer : customers) {
-            var customerMovies = customer.getLikedMovies();
-            var areSameGenre = false;
-
-            for (int j = 0; j < customerMovies.size() - 1; j++) {
-                if (!customerMovies.get(j).getGenre().equals(targetGenre)) break;
-
-                if (customerMovies.get(j).getGenre().equals(customerMovies.get(j + 1).getGenre())) {
-                    areSameGenre = true;
-                    break;
-                }
-            }
-
-            if (areSameGenre) {
-                result.add(customer);
-            }
-        }
-
-        return result;
+        return customers.stream().
+                filter(customer -> customer.getLikedMovies().stream()
+                        .allMatch(movie -> movie.getGenre().equals(targetGenre))).collect(Collectors.toList());
     }
 }
