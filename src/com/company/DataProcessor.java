@@ -18,16 +18,7 @@ public class DataProcessor {
      * Hint: Is there a method on streams that asks the question "Do all elements match a given condition?"
      */
     public static boolean findIfAllCustomersAreAboveTargetAge(List<Customer> customers, int targetAge) {
-        boolean result = true;
-
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getAge() < targetAge) {
-                result = false;
-                break;
-            }
-        }
-
-        return result;
+        return customers.stream().allMatch(customer -> customer.getAge() > targetAge);
     }
 
     /**
