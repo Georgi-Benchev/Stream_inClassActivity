@@ -85,15 +85,8 @@ public class DataProcessor {
      * Hint: https://www.baeldung.com/java-stream-reduce
      */
     public static Customer findTheCustomerWithTheLongestName(List<Customer> customers) {
-        Customer withLongestName = customers.get(0);
-
-        for (int i = 1; i < customers.size(); i++) {
-            if (customers.get(i).getName().length() > withLongestName.getName().length()) {
-                withLongestName = customers.get(i);
-            }
-        }
-
-        return withLongestName;
+        return customers.stream()
+                .reduce(customers.get(0), (a, b) -> a.getName().length() > b.getName().length() ? a : b);
     }
 
     /**
