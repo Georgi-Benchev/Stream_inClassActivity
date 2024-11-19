@@ -59,13 +59,7 @@ public class DataProcessor {
      * streams from one type to another?
      */
     public static double findAverageAgeOfAllCustomers(List<Customer> customers) {
-        double sum = 0;
-
-        for (int i = 0; i < customers.size(); i++) {
-            sum += customers.get(i).getAge();
-        }
-
-        return sum / customers.size();
+        return customers.stream().mapToInt(Customer::getAge).average().orElse(0);
     }
 
     /**
