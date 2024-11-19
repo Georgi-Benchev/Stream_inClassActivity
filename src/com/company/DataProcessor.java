@@ -25,16 +25,7 @@ public class DataProcessor {
      * Hint: Is there a method on streams that asks the question "Does any element match a given condition?"
      */
     public static boolean findIfAnyCustomersHasTargetName(List<Customer> customers, String targetName) {
-        boolean result = false;
-
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getName().equals(targetName)) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
+        return customers.stream().anyMatch(customer -> customer.getName().equals(targetName));
     }
 
     /**
